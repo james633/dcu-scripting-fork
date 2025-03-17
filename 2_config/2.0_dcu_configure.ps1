@@ -42,7 +42,7 @@ if ($DcuCliPath) {
             " 
 #set custom fields
             Ninja-Property-Set dcuInstallStatus 'YES: configured'
-            Ninja-Property-Set dellCommandUpdateInstalled 'YES: configured'
+            Ninja-Property-Set dcuUpdateInstalled 'YES: configured'
         } else {
             Write-Output "Error configuring Dell Command Update. Exit code: $($process.ExitCode)" 
         }

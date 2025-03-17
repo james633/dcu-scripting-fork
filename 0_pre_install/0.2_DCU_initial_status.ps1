@@ -129,7 +129,7 @@ function Test-DcuInstallation {
     if ($result.ConflictingAppFound) {
         $result.Status = "Invalid"
         $result.Reason = "Conflicting Dell application found"
-        Ninja-Property-Set dellCommandUpdateInstalled "INVALID: Dell Update Detected"
+        Ninja-Property-Set dcuUpdateInstalled "INVALID: Dell Update Detected"
         return $result
     }
 
@@ -167,17 +167,17 @@ function Test-DcuInstallation {
     if (-not $result.DCUFound) {
         $result.Status = "Not Installed"
         $result.Reason = "No Dell Command Update folders found"
-        Ninja-Property-Set dellCommandUpdateInstalled "NO: DCU not present"
+        Ninja-Property-Set dcuUpdateInstalled "NO: DCU not present"
     }
     elseif ($result.DCUFound -and -not $result.CLIFound) {
         $result.Status = "Invalid"
         $result.Reason = "Dell Command Update folder found, but CLI not present"
-        Ninja-Property-Set dellCommandUpdateInstalled "INVALID: no cli"
+        Ninja-Property-Set dcuUpdateInstalled "INVALID: no cli"
     }
     elseif ($result.CLIFound) {
         $result.Status = "Valid"
         $result.Reason = "CLI found at: $($result.CLIPath)"
-        Ninja-Property-Set dellCommandUpdateInstalled "YES: no config"
+        Ninja-Property-Set dcuUpdateInstalled "YES: no config"
     }
 
     return $result
@@ -186,7 +186,7 @@ function Test-DcuInstallation {
 # Function to get the current value of the custom field
 function Get-CustomFieldValue {
     try {
-        $currentValue = Ninja-Property-Get dellCommandUpdateInstalled
+        $currentValue = Ninja-Property-Get dcuUpdateInstalled
         return $currentValue
     }
     catch {

@@ -45,7 +45,7 @@ if ($DcuCliPath) {
                 500 {
                     Write-Host "No updates were found for the system. The system is up to date."
                     Ninja-Property-Set dcuScanLog "No updates found for the system as of - $formattedDateTime"
-                    Ninja-Property-Set mostRecentDcuScan "No updates found - $formattedDateTime" --stdin
+                    Ninja-Property-Set dcuMostRecentScan "No updates found - $formattedDateTime" --stdin
                     Ninja-Property-Set dcuRebootStatus "No Reboot needed. All applicable updates applied successfully"
                     Exit
                 }
@@ -63,7 +63,7 @@ if ($DcuCliPath) {
                 0 {
                     # Set Ninja custom fields
                     Ninja-Property-Set dcuScanLog "Updates applied successfully as of - $formattedDateTime"
-                    Ninja-Property-Set mostRecentDcuScan $formattedDateTime --stdin
+                    Ninja-Property-Set dcuMostRecentScan $formattedDateTime --stdin
                     Ninja-Property-Set dcuRebootStatus "No reboot needed"
                     
                     Write-Host "Updates applied successfully. No reboot needed."

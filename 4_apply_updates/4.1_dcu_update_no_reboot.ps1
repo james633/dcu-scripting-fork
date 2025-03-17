@@ -83,11 +83,11 @@ if ($DcuCliPath) {
             # Join the reboot types into a comma-separated list
             $rebootTypeList = $rebootTypes -join ", "
             Ninja-Property-Set dcuRebootNeeded "Yes reboot needed, for - $rebootTypeList"
-            Ninja-Property-Set mostRecentDcuScan "Updates available as of - $formattedDateTime" --stdin
+            Ninja-Property-Set dcuMostRecentScan "Updates available as of - $formattedDateTime" --stdin
         } else {
             Ninja-Property-Set dcuRebootNeeded "No reboot needed, updates applied successfully"
             Ninja-Property-Set dcuScanLog "No updates as of - $formattedDateTime"
-            Ninja-Property-Set mostRecentDcuScan "Updates Applied - $formattedDateTime" --stdin
+            Ninja-Property-Set dcuMostRecentScan "Updates Applied - $formattedDateTime" --stdin
         }
 
         Write-Output "Scans and updates completed successfully." -ForegroundColor Cyan

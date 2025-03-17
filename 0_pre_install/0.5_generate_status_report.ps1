@@ -1,9 +1,9 @@
 # Script to collect Dell Command Update Status Information
 
 function Collect-DCUStatus {
-    # $logPath = Ninja-Property-Get dcuLogLocation
-    # $logFile = $logPath
-    $logFile = "C:\dcuReport.txt"
+    $logPath = Ninja-Property-Get dcuLogLocation
+    $logFile = $logPath
+    #$logFile = "C:\dcuReport.txt"
     Write-Output "Collecting Dell Command Update Status Information..." | Out-File $logFile
 
     # Check running processes

@@ -1,7 +1,7 @@
 param (
 # take a parameter taht is the path you wish to use to create the folder
     # [Parameter(Mandatory=$true)]
-    [string]$env:folderPath
+    [string]$env:folderPath = "C:\Temp"
 )
 
 try {
@@ -13,7 +13,7 @@ try {
         Write-Output "Folder '$location' exists."
 
         # Define the subfolder name
-        $subfolderName = "logs"
+        $subfolderName = "DcuLogs"
         $subfolderPath = Join-Path -Path $location -ChildPath $subfolderName
 
         # Check if the subfolder already exists

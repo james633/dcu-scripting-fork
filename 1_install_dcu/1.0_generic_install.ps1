@@ -2,12 +2,23 @@
 function Install-DellCommandUpdateUsingInstaller {
 # URL of the Dell Command Update installer
     $installerUrl = "https://downloads.dell.com/FOLDER11563484M/1/Dell-Command-Update-Windows-Universal-Application_P83K5_WIN_5.3.0_A00.EXE"
+    $ExpectedHash = "C0E844E1CDCA160C21EEB3F8D30813D337E0E3AEB27B82ACA201811DF77A5D5F"
 # Path where the installer will be downloaded
     $installerPath = "$env:TEMP\DCU_Setup.exe"
     try {
 # Download the installer
-        Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath -ErrorAction Stop
-# Install the application silently
+        #Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath -ErrorAction Stop
+        Start-BitsTransfer -Source $installerUrl -Destination $installerPath
+
+#CHECK THE HASH OF THE DOWNLOAD, only continue if it matches expected hash.
+        $FileHash = Get-FileHash $installerPath | Select -Expand Hash
+        if ($FileHash -ne $ExpectedHash) {
+            Ninja-Property-Set dcuInstallStatus "NO: 1.0_generic_install.ps1: Failure. Setup file hash mismatch - got $FileHash; $(Get-Date)"
+            Write-Output "Error during installation process: Setup file hash mismatch - got $FileHash; $(Get-Date)"
+            THROW "File hash mismatch. Throwing it. $(Get-Date)"
+        }
+
+        # Install the application silently
         Start-Process -FilePath $installerPath -ArgumentList '/s' -Wait -NoNewWindow -ErrorAction Stop
 # Clean up by removing the installer file
         Remove-Item $installerPath -Force -ErrorAction Stop
